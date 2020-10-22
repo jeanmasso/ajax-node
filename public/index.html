@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form id="form">
+        <div class="field">
+            <input class="input" type="text" placeholder="Name" name="name">
+        </div>
+        <div class="field">
+            <input class="input" type="text" placeholder="Email" name="email">
+        </div>
+        <div class="field">
+            <input class="input" type="text" placeholder="Phone" name="phone">
+        </div>
+        <div class="field">
+            <input class="input" type="text" placeholder="Password" name="password">
+        </div>
+        <div class="field field-right">
+            <button class="button button--primary" type="submit">Send</button>
+        </div>
+    </form>
+    <script>
+        document.getElementById('form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const name = event.target.name.value;
+            const email = event.target.email.value;
+            const phone = event.target.phone.value;
+            const password = event.target.password.value;
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/register');
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    console.log(JSON.parse(xhr.responseText));
+                }
+            };
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(JSON.stringify({
+                name: name,
+                email: email,
+                phone: phone,
+                password: password
+            }));
+        });
+    </script>
+</body>
+
+</html>
